@@ -1,20 +1,21 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SeguridadSocial {
 
     private List<Persona> personasList;
-
-
+    //private HashMap<String, Persona> personasMap;
 
     public SeguridadSocial() {
 
         personasList = new ArrayList<>();
+        //personasMap = new HashMap<>();
 
     }
+
+
 
 // Debes comprobar que no se introduzcan dos personas con el mismo DNI/Número Seguridad Social
 
@@ -69,7 +70,6 @@ public class SeguridadSocial {
                 filter(persona -> persona.getDNI().equals(dni)).
                 findFirst().get();
 
-
         /*Persona aux = null;
         for (Persona persona: personasList){
             if (persona.getDNI().equals(dni)){
@@ -86,9 +86,6 @@ public class SeguridadSocial {
         return personasList.parallelStream().
                 filter(persona -> persona.getNumSeguridadSocial().equals(numSS)).
                 findFirst().get();
-
-
-
     }
 
     public List<Persona> obtenerPersonasRangoSalarial(double min, double max){
@@ -110,9 +107,78 @@ public class SeguridadSocial {
 
     public List<Persona> obtenerPersonasMayoresQue(int edad){
 
+        List<Persona> aux = new ArrayList<>();
+
+        for (Persona persona: personasList){
+            if (persona.getEdad() >= edad){
+                aux.add(persona);
+            }
+        } return aux;
+
+        //j8
+        /*return personasList.parallelStream().
+        filter(persona -> persona.getEdad() >= edad).
+        collect(Collectors.toList());
+         */
+
     }
 
     public List<Persona> obtenerTodas(){
+
+        List<Persona> aux = new ArrayList<>();
+
+        for (Persona persona: personasList){
+            aux.add(persona);
+        }   return aux;
+
+        /*j8
+        return personasList.parallelStream().
+        collect(Collectors.toList());
+        */
+
+    }
+
+    public Persona maxSalario() {
+
+        Persona max = null;
+
+        for (Persona persona: personasList) {
+
+            if (max == null) {
+                max = persona;
+
+            }else {
+                if (persona.getSalario() >  max.getSalario()){
+                    max = persona;
+                }
+            }
+
+        } return max;
+
+        //j8
+        //return personasList.stream().max(Comparator.comparing(Persona::getSalario)).get();
+
+    }
+
+    public Persona minSalario() {
+
+        Persona min = null;
+
+        for (Persona persona: personasList) {
+
+            if (min == null) {
+                min = persona;
+
+            }else {
+                if (persona.getSalario() <  min.getSalario()){
+                    min = persona;
+                }
+            }
+
+        } return min;
+
+        //j8
+        //return personasList.stream().max(Comparator.comparing(Persona::getSalario)).get();
 
     }
 
